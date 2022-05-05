@@ -1,8 +1,8 @@
-package edu.knoldus.WordCounterObj
+package edu.knoldus
 
 import java.io.File
 
-import edu.knoldus.FileReaderObj.fileReader._
+import edu.knoldus.FileReaderObj._
 import zio.{Has, ZIO, ZLayer}
 
 object WordCounterObj {
@@ -23,9 +23,6 @@ object WordCounterObj {
 
           override def counter(
               str: List[String]): ZIO[Any, Throwable, Map[String, Int]] = {
-
-            //  str.
-
             for {
               res: Seq[String] <- ZIO.foreach(str)(data =>
                 moduleA.read(new File(data)))
@@ -36,21 +33,11 @@ object WordCounterObj {
                   .groupMapReduce(identity)(_ => 1)(_ + _)
               }
             } yield res3
-            //          map {
-            //            data: String =>  data.split(" ")
-            //              .toList
-            //              .flatMap(_.split("\\W+"))
-            //              .groupMapReduce(identity)(_ => 1)(_ + _)
-            //            //                  .groupBy(x => x)
-            //            //                  .view.mapValues(_.size)
-            //          }
-
           }
         }
     }
   }
 
-  def counter(
-      str: List[String]): ZIO[WordCounter, Throwable, Map[String, Int]] =
+  def counter(str: List[String]): ZIO[WordCounter, Throwable, Map[String, Int]] =
     ZIO.accessM(_.get.counter(str))
 }

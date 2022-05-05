@@ -1,11 +1,11 @@
-package edu.knoldus.FileReaderObj
+package edu.knoldus
 import java.io.File
 
 import zio.{Has, Layer, URIO, ZIO, ZLayer}
 
 import scala.io.{BufferedSource, Source}
 
-object fileReader {
+object FileReaderObj {
   type FileReader = Has[FileReader.Service]
 
   object FileReader {
@@ -24,7 +24,6 @@ object fileReader {
           acquire(file).bracket(release) { reader =>
             ZIO(reader.getLines().mkString)
           }
-
         }
       }
     }

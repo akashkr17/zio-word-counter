@@ -1,7 +1,7 @@
 package edu.knoldus
 
-import edu.knoldus.FileReaderObj.fileReader.FileReader
-import edu.knoldus.WordCounterObj.WordCounterObj._
+import edu.knoldus.FileReaderObj._
+import edu.knoldus.WordCounterObj._
 import zio.clock._
 import zio.console.Console
 import zio.{ExitCode, URIO, ZIO}
